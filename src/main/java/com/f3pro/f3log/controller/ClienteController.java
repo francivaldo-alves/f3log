@@ -1,7 +1,9 @@
 package com.f3pro.f3log.controller;
 
-import com.f3pro.f3log.domain.ClienteRepository;
+import com.f3pro.f3log.repositories.ClienteRepository;
 import com.f3pro.f3log.model.Cliente;
+import com.f3pro.f3log.service.ClienteService;
+
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -19,6 +20,8 @@ public class ClienteController {
 
 
     private ClienteRepository repository;
+    
+    private ClienteService service;
 
     @GetMapping()
     public List<Cliente> listar() {
@@ -36,7 +39,7 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente adcioonar(@Valid @RequestBody Cliente cliente) {
-        return repository.save(cliente);
+        return service.salvar(cliente);
 
     }
 
@@ -57,7 +60,7 @@ public class ClienteController {
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        repository.deleteById(id);
+        service.excluir(id);
         return ResponseEntity.noContent().build();
 
     }
