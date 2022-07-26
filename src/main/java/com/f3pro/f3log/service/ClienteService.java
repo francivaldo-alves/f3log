@@ -15,7 +15,12 @@ import lombok.AllArgsConstructor;
 public class ClienteService {
 
 	private ClienteRepository repository;
-	
+
+	public Cliente buscar (Long clienteId){
+		return repository.findById(clienteId)
+				.orElseThrow(() -> new NegocioException("CLiente não encontrado"));
+
+	}
 	
 
 	@Transactional
