@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Embeddable
 public class Destinatario {
-    
+
     @NotBlank
     @Column(name = "destinatario_nome")
     private String nome;
