@@ -1,5 +1,6 @@
 package com.f3pro.f3log.controller;
 
+import com.f3pro.f3log.dto.EntregaDTO;
 import com.f3pro.f3log.model.Cliente;
 import com.f3pro.f3log.model.Entrega;
 import com.f3pro.f3log.repositories.EntregaRepository;
@@ -32,10 +33,15 @@ public class EntregaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Entrega> buscar(@PathVariable Long id) {
+    public ResponseEntity<EntregaDTO> buscar(@PathVariable Long id) {
         return repository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .map(entrega ->{
+                	EntregaDTO entregaDTO = new EntregaDTO();
+                	return ResponseEntity.ok(entregaDTO);
+                	
+        
+                	
+                }) .orElse(ResponseEntity.notFound().build());
     }
 
 
